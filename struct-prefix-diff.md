@@ -83,4 +83,54 @@ class Difference:
         return res
 ```
 
+Leetcode 370: Range Addition
+```java
+int[] getModifiedArray(int length, int[][]updates) {
+    int [] nums = new int[length];
+    Difference df = new Difference(nums);
+    for (int[] update: updates) {
+        int i = update[0];
+        int j = update[1];
+        int val = update[2];
+        df.increment(i, j, val);
+    }
+    return df.result();
+}
+```
+
+Leetcode 1109: Fligth Reservation
+```java
+int[] corpFlightBookings(int[][] bookings, int n) {
+    int[] nums = new int[n];
+    Difference df = new Difference(nums);
+    for (int[] booking: bookings) {
+        int i = booking[0] - 1;
+        int j = booling[1] - 1;
+        int val = booking[2];
+        df.increment(i, j, val);
+    }
+    return df.return();
+}
+```
+
+Leetcode 1094: Car Pooling
+```java
+boolean carPooling(int[][] trips, int capacity) {
+    int[] nums = new int[1001];
+    Difference df = new Difference(nums);
+    for (int[] trip : trips) {
+        int val = trip[0];
+        int i = trip[1];
+        int j = trip[2] - 1;
+        df.increment(i, j, val);
+    }
+    int[] res = df.result();
+    for (int i = 0; i < res.length; i++) {
+        if (capacity < res[i]) {
+            return false;
+        }
+    }
+    return true;
+}
+```
 
