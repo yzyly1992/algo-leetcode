@@ -228,4 +228,190 @@ public boolean checkInclusion(String t, String s) {
 }
 ```
 
+```cpp
+bool checkInclusion(string t, string s) {
+    unordered_map<char, int> need, window;
+    for (char c : t) need[c]++;
+
+    int left = 0, right = 0;
+    int valid = 0;
+    while (right < s.size()) {
+        char c = s[right];
+        right++;
+        if (t.count(c)) {
+            window[c]++;
+            if (window[c] == need[c]) {
+                valid++;
+            }
+        }
+
+        while (right - left >= t.size()) {
+            if (valid == need.size()) {
+                return true;
+            }
+            char d = s[left];
+            left++;
+
+            if (need.count(d)) {
+                if (window[d] == need[d]) {
+                    valid--;
+                }
+                window[d]--;
+            }
+        }
+    }
+    return false;
+}
+```
+
+```python
+def checkInclusion(t: str, s: str) -> bool:
+    from collection import defaultdict
+    need, window = defaultdict(int), default(int)
+    for c in t:
+        need[c] += 1
+
+    left, right = 0, 0
+    valid = 0
+    while right < len(s):
+        c = s[right]
+        right += 1
+        if window[c] == need[c]:
+            valid += 1
+
+        while right - left >= len(t):
+            if valid == len(need):
+                return True
+            d = s[left]
+            left += 1
+            if d in need:
+                if window[d] == need[d]:
+                    valid -= 1
+                window[d] -= 1
+    return False
+```
+
+Leetcode 438: Find Anagrams
+
+```java
+public List<Integer> findAnagrams(String s, String t) {
+    List<Integer> result = new ArrayList<>();
+    if (t.length() >= s.length()) return result;
+
+    Map<Character, Integer> need = HashMap<>();
+    Map<Character, Integer> window = HashMap<>();
+
+    for (char c : t.toCharArray()) {
+        need.put(c, need.getOrDefault(c, 0) + 1);
+    }
+    
+    int left = 0, right = 0;
+    int valid = 0;
+
+    while (right < s.length()) {
+        char c = s.charAt(right);
+        right++;
+        if (need.containsKey(c)) {
+            window.put(c, window.getOrDefault(c, 0) + 1);
+            if (window.get(c).equals(need.get(c)) {
+                valid++;
+            }
+
+            while (left - right >= t.length()) {
+                if (valid == need.size()) {
+                    result.add(left);
+                }
+                char d = s.charAt(left);
+                left++;
+
+                if (need.containsKey(d)) {
+                    if (need.get(d).equals(window.get(d))) {
+                        valid--;
+                    }
+                    window.put(d, window.getOrDefualt(d, 0) - 1);
+                }
+            }
+        }
+    }
+    return result;
+}
+```
+
+Leetcode 3: Find Longest Substring with No Repeat Character
+
+```java
+int lengthOfLongestSubstring(String s) {
+    if (s.length() <= 1) return s.length();
+    HashMap<Character, Integer> window = new HashMap<>();
+
+    int left = 0, right = 0;
+    int valid = 0;
+    int result = 0;
+
+    while (right < s.length()) {
+        char c = s.charAt(right);
+        right++;
+        if (!window.containsKey(c)) {
+            valid++;
+            window.put(c, 1);
+            if (valid == right - left) {
+                if (valid > result) {
+                    result = valid;
+                }
+            }
+        }
+        else if (window.get(c) == 1) {
+            valid--;
+            window.remove(c);
+        } else {
+            window.put(c, window.get(c) - 1);
+        }
+
+        while (left - right >= valid) {
+            char d = s.charAt(left);
+            left++;
+            if (window.get(d) == 1) {
+                valid--;
+                window.remove(d);
+            } else {
+                window.put(d, window.get(d) - 1);
+                if (window.get(d) == 1) {
+                    valid++;
+                    if (valid == right - left) {
+                        if (result < valid) {
+                            result = valid;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return result;
+}
+```
+
+Simple solution:
+```java
+int lengthOfLongestSubstring(String s) {
+    Map<Character, Integer> window = new HashMap<>();
+
+    int left = 0, right = 0;
+    int res = 0;
+    while (right < s.length()) {
+        char c = s.charAt(right);
+        right++;
+        window.put(c, window.getOrDefault(c, 0) + 1);
+        while (window.get(c) > 1) {
+            char d = s.charAt(left);
+            left++;
+            window.put(d, window.get(d) - 1);
+        }
+        res = Math.max(res, right - left);
+    }
+    return res;
+}
+```
+
+
+
 
