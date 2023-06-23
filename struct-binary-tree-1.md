@@ -60,6 +60,60 @@ void traverse(TreeNode root) {
     depth--;
 }
 ```
+Leetcode 104 Method 2
+```java
+int maxDepth(TreeNode root) {
+    if (root == null) {
+        return 0;
+    }
+
+    int leftMax = maxDepth(root.left);
+    int rightMax = maxDepth(root.right);
+    int res = Math.max(leftMax, rightMax) + 1;
+    return res;
+}
+```
+
+Pre-order traverse == root node + left tree traverse result + right tree traverse result
+```java
+List<Integer> preorderTraverse(TreeNode root) {
+    List<Integer> res = new LinkedList<>();
+    if (root == null) {
+        return res;
+    }
+
+    res.add(root.val);
+    res.addAll(preorderTraverse(root.left));
+    res.addAll(preorderTraverse(root.right));
+    return res;
+}
+```
+
+In-order traverse can be used in BST (binary search tree), it can traverse the node in order.
+
+
+Leetcode 543: Diameter for binary tree
+```java
+class Solution {
+    int maxDiameter = 0;
+
+    public int diameterOfBinaryTree(TreeNode root) {
+        maxDepth(root);
+        return maxDiameter;
+    }
+
+    int maxDepth(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int leftMax = maxDepth(root.left);
+        int rightMax = maxDepth(root.right);
+        int myDiameter = leftMax + rightMax;
+        maxDiameter = Math.max(maxDiameter, myDiameter);
+        return 1 + Math.max(leftMax, rightMax);
+    }
+}
+```
 
 
 
