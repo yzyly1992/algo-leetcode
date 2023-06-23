@@ -37,4 +37,29 @@ Two Major Methods for Binary Tree Problem
  - Backtracking Method
  - Dynamic Programming
 
+Leetcode: 104
+```java
+int res = 0;
+int depth = 0;
+int maxDepth(TreeNode root) {
+    traverse(root);
+    return res;
+}
+
+void traverse(TreeNode root) {
+    if (root == null) {
+        return;
+    }
+    // pre-order position
+    depth++;
+    if (root.left == null && root.right == null) {
+        res = Math.max(res, depth);
+    }
+    traverse(root.left);
+    traverse(root.right);
+    depth--;
+}
+```
+
+
 
